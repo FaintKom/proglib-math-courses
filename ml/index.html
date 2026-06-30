@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ru"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Математика для ML/AI — proglib</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* --- GrassLMS design tokens (reconstructed) --- */
+:root{
+  --paper:#f7f8f2; --paper-2:#ffffff;
+  --ink-900:#0a1a10; --ink-500:#5b6b60; --ink-400:#8a978c; --ink-100:#e4e9e1; --ink-50:#eef2ea;
+  --green-600:#0a8754; --green-700:#0a6b43; --green-800:#085a38; --green-100:#d8f0e2; --green-300:#8fd770;
+  --sun-300:#ffe680; --sun-400:#ffd84d; --sun-500:#f5b800; --sun-700:#b88a00; --sun-100:#fff4cc;
+  --coral-50:#ffefe9; --coral-700:#c2402a;
+  --font-sans:'Manrope',-apple-system,Segoe UI,sans-serif; --font-mono:'Geist Mono',monospace;
+  --shadow-sm:0 2px 10px rgba(10,26,16,0.08);
+}
+html,body{margin:0;height:100%;background:#06120b;overflow:hidden;}
+.stagewrap{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;}
+.stage{width:1920px;height:1080px;position:relative;transform-origin:center center;}
+.stage .slide{display:none;position:absolute;inset:0;}
+.stage .slide.active{display:flex;}
+
+/* --- original deck styles --- */
+.slide{height:100%;width:100%;background:var(--paper);color:var(--ink-900);font-family:var(--font-sans);overflow:hidden}
+.lcol{width:44%;flex-shrink:0;display:flex;flex-direction:column;justify-content:center;gap:28px;padding:100px}
+.rcol{flex:1;background:var(--ink-900);position:relative;overflow:hidden}
+.cnv{display:block;width:100%;height:100%}
+.wm{font-weight:800;font-size:30px;color:var(--green-600);letter-spacing:-0.01em}
+.wm i{color:var(--sun-500);font-style:normal}
+.eyebrow{font-family:var(--font-mono);font-size:24px;letter-spacing:.12em;text-transform:uppercase;color:var(--green-600);font-weight:500}
+.meta{font-family:var(--font-mono);font-size:24px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-400);font-weight:400}
+.ttl{font-size:64px;line-height:1.06;font-weight:800;margin:0;letter-spacing:-0.02em}
+.ttl-xl{font-size:84px;line-height:1.02;font-weight:800;margin:0;letter-spacing:-0.025em}
+.mk{font-style:normal;background:var(--sun-300);color:var(--ink-900);padding:.02em .16em;border-radius:5px;display:inline-block;transform:rotate(-1.5deg)}
+.lead{font-size:30px;line-height:1.42;color:var(--ink-500);margin:0;font-weight:500;max-width:19em}
+.formula{font-family:var(--font-mono);font-size:25px;color:var(--ink-900);background:var(--ink-50);border:1px solid var(--ink-100);border-radius:14px;padding:16px 22px;align-self:flex-start;font-weight:500}
+.center{flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:90px}
+.big{font-size:70px;font-weight:800;line-height:1.08;margin:0;max-width:16em;letter-spacing:-0.02em}
+.sub{font-size:30px;color:var(--ink-500);max-width:28em;margin:0;font-weight:500;line-height:1.4}
+.pillars{display:flex;gap:28px;margin-top:26px}
+.pill{width:400px;background:var(--paper-2);border:1px solid var(--ink-100);border-radius:18px;box-shadow:var(--shadow-sm);padding:34px;text-align:left;display:flex;flex-direction:column;gap:12px}
+.pk{font-family:var(--font-mono);font-size:24px;letter-spacing:.06em;text-transform:uppercase;color:var(--green-600);font-weight:500}
+.pv{font-size:26px;font-weight:700;line-height:1.25;margin:0}
+.pd{font-size:24px;color:var(--ink-500);line-height:1.35;margin:0}
+.prog{flex-direction:column;justify-content:center;gap:38px;padding:80px 100px}
+.phead{display:flex;flex-direction:column;gap:14px}
+.blocks{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.blk{background:var(--paper-2);border:1px solid var(--ink-100);border-radius:18px;box-shadow:var(--shadow-sm);padding:28px;display:flex;flex-direction:column;gap:16px}
+.bn{font-family:var(--font-mono);font-size:24px;color:var(--green-600);letter-spacing:.06em;font-weight:500}
+.bh{font-size:27px;margin:0;font-weight:700;line-height:1.15}
+.blk ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:9px}
+.blk li{font-size:24px;color:var(--ink-500);line-height:1.3}
+.online{display:flex;align-items:center;gap:24px;background:var(--ink-900);color:#fff;border-radius:18px;padding:24px 34px}
+.ol{font-family:var(--font-mono);font-size:24px;letter-spacing:.08em;text-transform:uppercase;color:var(--sun-400);font-weight:500;flex-shrink:0}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{font-size:24px;background:rgba(255,255,255,0.08);color:#fff;border-radius:999px;padding:8px 16px;font-weight:500}
+.fmt{flex-direction:column;justify-content:center;gap:44px;padding:80px 100px}
+.tiles{display:flex;gap:22px}
+.tile{flex:1;background:var(--paper-2);border:1px solid var(--ink-100);border-radius:18px;box-shadow:var(--shadow-sm);padding:30px;display:flex;flex-direction:column;gap:16px}
+.glyph{width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:24px;font-weight:500}
+.tt{font-size:25px;font-weight:700;line-height:1.2;margin:0}
+.td{font-size:24px;color:var(--ink-500);line-height:1.35;margin:0}
+.cta{background:var(--ink-900);color:#fff;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:100px;position:relative}
+.cta .cnv{position:absolute;inset:0;opacity:0.45}
+.ctac{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:32px}
+.ctah{font-size:80px;font-weight:800;margin:0;line-height:1.06;letter-spacing:-0.02em;max-width:15em}
+.ctasub{font-family:var(--font-mono);font-size:24px;letter-spacing:.06em;color:rgba(255,255,255,0.6);text-transform:uppercase}
+.btn{background:var(--green-600);color:#fff;font-size:30px;font-weight:700;padding:22px 46px;border-radius:14px;box-shadow:0 4px 0 0 var(--green-800)}
+.ceye{font-family:var(--font-mono);font-size:24px;letter-spacing:.12em;text-transform:uppercase;color:var(--sun-400);font-weight:500}
+
+/* --- navigation --- */
+.nav{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:18px;
+  background:rgba(10,26,16,.7);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.12);
+  border-radius:999px;padding:8px 14px;z-index:10;font-family:var(--font-mono);color:#fff}
+.nav button{all:unset;cursor:pointer;color:#fff;font-size:22px;padding:4px 12px;border-radius:8px}
+.nav button:hover{background:rgba(255,255,255,.12)}
+.nav .ctr{font-size:16px;letter-spacing:.1em;color:rgba(255,255,255,.7);min-width:64px;text-align:center}
+</style>
+</head>
+<body>
+<div class="stagewrap"><div class="stage" id="stage">
+
+<section data-speaker-notes="Курс 5 — Pro. Прикладная математика для ML/AI. От векторов до нейросетей." class="slide active">
+<div class="lcol">
+<div class="wm">Grass<i>LMS</i></div>
+<div class="eyebrow">Курс 5 · Pro</div>
+<h1 class="ttl-xl">Математика для <em class="mk">ML/AI</em></h1>
+<p class="lead">От векторов до нейросетей — математика, которая стоит за каждой моделью машинного обучения.</p>
+<div class="meta">14 занятий · Colab · тесты · финальный проект</div>
+</div>
+<div class="rcol"><canvas id="cnv-title" class="cnv"></canvas></div>
+</section>
+
+<section data-speaker-notes="Курс учит понимать, что внутри моделей, а не запускать готовое." class="slide center">
+<h2 class="big">За каждой ML-моделью стоит <em class="mk">математика</em></h2>
+<p class="sub">Курс учит не запускать готовое, а понимать, что происходит внутри — и собирать модели осознанно.</p>
+<div class="pillars">
+<div class="pill"><span class="pk">Понимание</span><p class="pv">Не магия, а формулы</p><p class="pd">Видеть, почему модель работает, а не подбирать наугад.</p></div>
+<div class="pill"><span class="pk">Интуиция</span><p class="pv">Геометрия данных</p><p class="pd">Чувствовать векторы, пространства и расстояния.</p></div>
+<div class="pill"><span class="pk">Практика</span><p class="pv">От теории к коду</p><p class="pd">Каждое занятие — Google Colab и реальные данные.</p></div>
+</div>
+</section>
+
+<section data-speaker-notes="Линейные преобразования: сетка пространства сжимается, поворачивается, растягивается." class="slide">
+<div class="lcol">
+<div class="eyebrow">Занятие 02</div>
+<h2 class="ttl">Векторы и <em class="mk">матрицы</em></h2>
+<p class="lead">Любая модель — это операции над векторами. Матрица сжимает, поворачивает и растягивает само пространство.</p>
+<div class="formula">A · x = b</div>
+</div>
+<div class="rcol"><canvas id="cnv-vec" class="cnv"></canvas></div>
+</section>
+
+<section data-speaker-notes="Линия подбирает наклон и сдвиг, минимизируя сумму квадратов ошибок." class="slide">
+<div class="lcol">
+<div class="eyebrow">Занятие 03</div>
+<h2 class="ttl">Линейная <em class="mk">регрессия</em></h2>
+<p class="lead">Линия ищет себя сама: подбирает наклон и сдвиг так, чтобы ошибка стала минимальной.</p>
+<div class="formula">ŷ = w·x + b</div>
+</div>
+<div class="rcol"><canvas id="cnv-reg" class="cnv"></canvas></div>
+</section>
+
+<section data-speaker-notes="Секущая в пределе становится касательной — так измеряется скорость изменения." class="slide">
+<div class="lcol">
+<div class="eyebrow">Занятие 05</div>
+<h2 class="ttl">Пределы и <em class="mk">производные</em></h2>
+<p class="lead">Производная — это секущая, которая в пределе становится касательной. Так мы измеряем скорость изменения.</p>
+<div class="formula">f′(x) = lim Δx→0 Δy / Δx</div>
+</div>
+<div class="rcol"><canvas id="cnv-lim" class="cnv"></canvas></div>
+</section>
+
+<section data-speaker-notes="Модель спускается по поверхности ошибки против градиента к минимуму." class="slide">
+<div class="lcol">
+<div class="eyebrow">ДЗ № 2</div>
+<h2 class="ttl">Градиентный <em class="mk">спуск</em></h2>
+<p class="lead">Модель учится шаг за шагом, спускаясь по поверхности ошибки против градиента — к минимуму.</p>
+<div class="formula">θ ← θ − η · ∇L(θ)</div>
+</div>
+<div class="rcol"><canvas id="cnv-grad" class="cnv"></canvas></div>
+</section>
+
+<section data-speaker-notes="Много случайных наблюдений складываются в нормальное распределение." class="slide">
+<div class="lcol">
+<div class="eyebrow">Занятия 10–12</div>
+<h2 class="ttl">Случайность и <em class="mk">статистика</em></h2>
+<p class="lead">Случайный шум складывается в чёткий закон — нормальное распределение.</p>
+<div class="formula">X ~ N(μ, σ²)</div>
+</div>
+<div class="rcol"><canvas id="cnv-prob" class="cnv"></canvas></div>
+</section>
+
+<section data-speaker-notes="Сигнал идёт вперёд, ошибка возвращается назад — backpropagation." class="slide">
+<div class="lcol">
+<div class="eyebrow">Онлайн-сессии</div>
+<h2 class="ttl">От математики к <em class="mk">нейросети</em></h2>
+<p class="lead">Сигнал идёт вперёд, ошибка возвращается назад. Backpropagation — это производные по всей сети.</p>
+<div class="formula">∂L/∂w — обратное распространение</div>
+</div>
+<div class="rcol"><canvas id="cnv-net" class="cnv"></canvas></div>
+</section>
+
+<section data-speaker-notes="Четыре блока: линейная алгебра, матанализ, вероятность и статистика, карьера и проект. Плюс онлайн-сессии." class="slide prog">
+<div class="phead"><div class="eyebrow">Программа</div><h2 class="ttl">Четыре блока, один <em class="mk">маршрут</em></h2></div>
+<div class="blocks">
+<div class="blk"><span class="bn">01–04</span><h3 class="bh">Линейная алгебра</h3><ul><li>Применение математики в ML</li><li>Векторы и матрицы</li><li>Линейная регрессия</li><li>Матричные разложения</li></ul></div>
+<div class="blk"><span class="bn">05–09</span><h3 class="bh">Математический анализ</h3><ul><li>Функции и пределы</li><li>Функции многих переменных</li><li>Оптимизация и интегралы</li><li>Матанализ на практике</li></ul></div>
+<div class="blk"><span class="bn">10–12</span><h3 class="bh">Вероятность и статистика</h3><ul><li>Теория вероятностей</li><li>Случайные величины</li><li>Статистика и гипотезы</li></ul></div>
+<div class="blk"><span class="bn">13–14</span><h3 class="bh">Карьера и проект</h3><ul><li>Математика в Data Science</li><li>Финальный проект</li><li>3 ДЗ и тесты к занятиям</li><li>Квиз «Контрошка»</li></ul></div>
+</div>
+<div class="online"><span class="ol">Онлайн-сессии</span><div class="chips"><span class="chip">Word2vec</span><span class="chip">Градиентный спуск</span><span class="chip">Backpropagation</span><span class="chip">Случайный лес</span><span class="chip">Логистическая регрессия</span><span class="chip">KNN</span><span class="chip">Байесовский классификатор</span></div></div>
+</section>
+
+<section data-speaker-notes="Вебинары, Colab, тесты, домашние задания и финальный проект." class="slide fmt">
+<div class="phead"><div class="eyebrow">Формат обучения</div><h2 class="ttl">Теория сразу <em class="mk">в коде</em></h2></div>
+<div class="tiles">
+<div class="tile"><div class="glyph" style="background:var(--green-100);color:var(--green-700)">▶</div><p class="tt">Вебинары</p><p class="td">Живые занятия с записями — смотрите в удобное время.</p></div>
+<div class="tile"><div class="glyph" style="background:var(--ink-900);color:var(--green-300)">&lt;/&gt;</div><p class="tt">Google Colab</p><p class="td">Код прямо в браузере: эксперименты на реальных данных.</p></div>
+<div class="tile"><div class="glyph" style="background:var(--sun-100);color:var(--sun-700)">?</div><p class="tt">Тесты</p><p class="td">Короткие проверки после каждого занятия.</p></div>
+<div class="tile"><div class="glyph" style="background:var(--coral-50);color:var(--coral-700)">Σ</div><p class="tt">Домашние задания</p><p class="td">Три практических ДЗ: регрессия, градиент, гипотезы.</p></div>
+<div class="tile"><div class="glyph" style="background:var(--green-100);color:var(--green-700)">★</div><p class="tt">Финальный проект</p><p class="td">Соберите всё в один проект с защитой.</p></div>
+</div>
+</section>
+
+<section data-speaker-notes="Начните бесплатно — соберите модель, понимая каждый шаг." class="slide cta">
+<canvas id="cnv-cta" class="cnv"></canvas>
+<div class="ctac">
+<div class="ceye">Курс 5 · Pro</div>
+<h2 class="ctah">Соберите модель, <em class="mk">понимая</em> каждый шаг</h2>
+<div class="btn">Начать бесплатно</div>
+<div class="ctasub">Навсегда бесплатно · без карты</div>
+</div>
+</section>
+
+</div></div>
+
+<div class="nav">
+  <button id="prev">‹</button>
+  <span class="ctr" id="ctr">1 / 11</span>
+  <button id="next">›</button>
+</div>
+
+<script>
+// --- fit 1920x1080 stage to viewport ---
+const stage=document.getElementById('stage');
+function fit(){const s=Math.min(innerWidth/1920,innerHeight/1080);stage.style.transform='scale('+s+')';}
+addEventListener('resize',fit);fit();
+
+// --- slide navigation ---
+const slides=[...stage.querySelectorAll('.slide')];let cur=0;
+const ctr=document.getElementById('ctr');
+function show(i){slides[cur].classList.remove('active');cur=(i+slides.length)%slides.length;slides[cur].classList.add('active');ctr.textContent=(cur+1)+' / '+slides.length;}
+document.getElementById('next').onclick=()=>show(cur+1);
+document.getElementById('prev').onclick=()=>show(cur-1);
+addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();show(cur+1);}if(e.key==='ArrowLeft')show(cur-1);});
+
+// --- canvas animations (from GrassLMS deck) ---
+(function(){
+  const C={green:'#3fb04b',green6:'#0a8754',green4:'#6bc44d',green3:'#8fd770',sun:'#ffd84d',sun5:'#f5b800',coral:'#ff7a5c',white:'#fafbf6',mute:'rgba(255,255,255,0.55)',grid:'rgba(255,255,255,0.07)',gridb:'rgba(255,255,255,0.16)',ink:'#0a1a10'};
+  const arrow=(ctx,x1,y1,x2,y2,col,lw)=>{ctx.strokeStyle=col;ctx.fillStyle=col;ctx.lineWidth=lw;ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();const a=Math.atan2(y2-y1,x2-x1),hl=11+lw*1.4;ctx.beginPath();ctx.moveTo(x2,y2);ctx.lineTo(x2-hl*Math.cos(a-0.42),y2-hl*Math.sin(a-0.42));ctx.lineTo(x2-hl*Math.cos(a+0.42),y2-hl*Math.sin(a+0.42));ctx.closePath();ctx.fill();};
+  const rose=(ctx,w,h,t,fade)=>{const cx=w/2,cy=h/2,R=Math.min(w,h)*0.34,k=5,rot=t*0.12;ctx.globalAlpha=fade?0.9:1;ctx.strokeStyle=C.grid;ctx.lineWidth=1;for(let r=1;r<=4;r++){ctx.beginPath();ctx.arc(cx,cy,R*r/4,0,Math.PI*2);ctx.stroke();}const g=ctx.createLinearGradient(cx-R,cy-R,cx+R,cy+R);g.addColorStop(0,C.green4);g.addColorStop(1,C.sun);ctx.strokeStyle=g;ctx.lineWidth=3;ctx.beginPath();const N=600;for(let i=0;i<=N;i++){const th=i/N*Math.PI*2,rr=R*Math.cos(k*th),x=cx+rr*Math.cos(th+rot),y=cy+rr*Math.sin(th+rot);i?ctx.lineTo(x,y):ctx.moveTo(x,y);}ctx.stroke();const tp=(t*0.22)%1,th=tp*Math.PI*2,rr=R*Math.cos(k*th),dx=cx+rr*Math.cos(th+rot),dy=cy+rr*Math.sin(th+rot);ctx.fillStyle=C.sun;ctx.shadowColor=C.sun;ctx.shadowBlur=18;ctx.beginPath();ctx.arc(dx,dy,7,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;ctx.globalAlpha=1;};
+  const anims=[
+    {id:'cnv-title',draw:(ctx,w,h,t)=>rose(ctx,w,h,t,false)},
+    {id:'cnv-cta',draw:(ctx,w,h,t)=>rose(ctx,w,h,t,true)},
+    {id:'cnv-vec',draw:(ctx,w,h,t)=>{const cx=w/2,cy=h/2,u=Math.min(w,h)/8.5;const s=(Math.sin(t*0.5)*0.5+0.5),e=s*s*(3-2*s);const T=[1,0.85,-0.55,0.9];const a=1+(T[0]-1)*e,b=(T[1])*e,c=(T[2])*e,d=1+(T[3]-1)*e;const map=(x,y)=>[cx+(a*x+c*y)*u,cy-(b*x+d*y)*u];const rng=5;ctx.lineWidth=1;for(let i=-rng;i<=rng;i++){ctx.strokeStyle=i===0?C.gridb:C.grid;let p=map(i,-rng);ctx.beginPath();ctx.moveTo(p[0],p[1]);p=map(i,rng);ctx.lineTo(p[0],p[1]);ctx.stroke();p=map(-rng,i);ctx.beginPath();ctx.moveTo(p[0],p[1]);p=map(rng,i);ctx.lineTo(p[0],p[1]);ctx.stroke();}const o=map(0,0),iv=map(1,0),jv=map(0,1),v=map(2,1);arrow(ctx,o[0],o[1],v[0],v[1],C.coral,4);arrow(ctx,o[0],o[1],iv[0],iv[1],C.green,5);arrow(ctx,o[0],o[1],jv[0],jv[1],C.sun,5);ctx.font='600 22px Geist Mono, monospace';ctx.fillStyle=C.green3;ctx.fillText('î',iv[0]+8,iv[1]+22);ctx.fillStyle=C.sun;ctx.fillText('ĵ',jv[0]+10,jv[1]-6);}},
+    {id:'cnv-reg',draw:(ctx,w,h,t,a)=>{if(!a.pts||t-a.t0>5.4){a.t0=t;const n=22,sl=0.55+(Math.random()*0.5),ic=(Math.random()*1.4-0.7);a.pts=[];for(let i=0;i<n;i++){const x=(i/(n-1))*2-1,y=sl*x+ic*0.3+(Math.random()*2-1)*0.42;a.pts.push([x,y]);}let mx=0,my=0;a.pts.forEach(p=>{mx+=p[0];my+=p[1];});mx/=n;my/=n;let num=0,den=0;a.pts.forEach(p=>{num+=(p[0]-mx)*(p[1]-my);den+=(p[0]-mx)*(p[0]-mx);});const m=num/den;a.ols=[m,my-m*mx];a.start=[a.ols[0]-1.5,a.ols[1]+0.9];}const prog=Math.min(1,(t-a.t0)/3.4),e=prog*prog*(3-2*prog);const m=a.start[0]+(a.ols[0]-a.start[0])*e,bb=a.start[1]+(a.ols[1]-a.start[1])*e;const px=80,py=80,X=x=>px+(x+1.35)/2.7*(w-2*px),Y=y=>(h-py)-(y+2)/4*(h-2*py);ctx.strokeStyle=C.grid;ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(px,Y(-2));ctx.lineTo(w-px,Y(-2));ctx.moveTo(X(0),py*0.6);ctx.lineTo(X(0),h-py);ctx.stroke();a.pts.forEach(p=>{const yl=m*p[0]+bb;ctx.strokeStyle='rgba(255,122,92,0.45)';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(X(p[0]),Y(p[1]));ctx.lineTo(X(p[0]),Y(yl));ctx.stroke();});ctx.strokeStyle=C.sun;ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(X(-1.35),Y(m*-1.35+bb));ctx.lineTo(X(1.35),Y(m*1.35+bb));ctx.stroke();a.pts.forEach(p=>{ctx.fillStyle=C.green4;ctx.beginPath();ctx.arc(X(p[0]),Y(p[1]),6,0,Math.PI*2);ctx.fill();});}},
+    {id:'cnv-lim',draw:(ctx,w,h,t)=>{const f=x=>1.3*Math.sin(0.8*x),X=x=>w/2+x*(w/10.5),Y=y=>h/2-y*(h/6);ctx.strokeStyle=C.grid;ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(0,h/2);ctx.lineTo(w,h/2);ctx.moveTo(w/2,0);ctx.lineTo(w/2,h);ctx.stroke();ctx.strokeStyle=C.green4;ctx.lineWidth=3;ctx.beginPath();for(let px=-5;px<=5;px+=0.04){const sx=X(px),sy=Y(f(px));px===-5?ctx.moveTo(sx,sy):ctx.lineTo(sx,sy);}ctx.stroke();const x0=-1.1,hh=0.05+(Math.sin(t*0.55)*0.5+0.5)*3.0,y0=f(x0),yq=f(x0+hh),slope=(yq-y0)/hh,ln=x=>y0+slope*(x-x0);ctx.setLineDash([6,6]);ctx.strokeStyle='rgba(255,122,92,0.5)';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(X(x0),Y(y0));ctx.lineTo(X(x0+hh),Y(y0));ctx.lineTo(X(x0+hh),Y(yq));ctx.stroke();ctx.setLineDash([]);ctx.strokeStyle=C.sun;ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(X(-5),Y(ln(-5)));ctx.lineTo(X(5),Y(ln(5)));ctx.stroke();ctx.fillStyle=C.green;ctx.beginPath();ctx.arc(X(x0),Y(y0),7,0,Math.PI*2);ctx.fill();ctx.fillStyle=C.coral;ctx.beginPath();ctx.arc(X(x0+hh),Y(yq),7,0,Math.PI*2);ctx.fill();}},
+    {id:'cnv-grad',draw:(ctx,w,h,t,a)=>{const f=x=>0.07*x*x,df=x=>0.14*x,X=x=>w/2+x*(w/22),Y=y=>h-80-y*(h-150)/6;if(a.bx===undefined){a.bx=(Math.random()<0.5?-1:1)*(6.5+Math.random()*2);a.trail=[];a.last=t;a.settle=0;}if(t-a.last>0.3){a.last=t;a.trail.push(a.bx);if(a.trail.length>16)a.trail.shift();a.bx=a.bx-1.05*df(a.bx);if(Math.abs(a.bx)<0.25)a.settle++;if(a.settle>7)a.bx=undefined;}if(a.bx===undefined){a.bx=0;}ctx.strokeStyle=C.green4;ctx.lineWidth=3;ctx.beginPath();for(let px=-9;px<=9;px+=0.08){const sx=X(px),sy=Y(f(px));px===-9?ctx.moveTo(sx,sy):ctx.lineTo(sx,sy);}ctx.stroke();a.trail.forEach((tx,i)=>{const al=(i+1)/a.trail.length*0.5;ctx.fillStyle='rgba(63,176,75,'+al+')';ctx.beginPath();ctx.arc(X(tx),Y(f(tx)),5,0,Math.PI*2);ctx.fill();});const bx=a.bx,by=f(bx),dir=(-Math.sign(df(bx)))||1;if(Math.abs(bx)>0.3)arrow(ctx,X(bx),Y(by),X(bx+dir*1.7),Y(f(bx+dir*1.7)),C.coral,3);ctx.fillStyle=C.sun;ctx.shadowColor=C.sun;ctx.shadowBlur=14;ctx.beginPath();ctx.arc(X(bx),Y(by),10,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;}},
+    {id:'cnv-prob',draw:(ctx,w,h,t,a)=>{const NB=21,pad=70,base=h-64,bw=(w-2*pad)/NB,sc=(h-160)/42;if(!a.bins){a.bins=new Array(NB).fill(0);a.balls=[];a.total=0;a.spawn=t;a.max=280;a.fade=undefined;}if(t-a.spawn>0.045&&a.total<a.max){a.spawn=t;let s=0;for(let i=0;i<12;i++)s+=Math.random();s-=6;s=Math.max(-2.9,Math.min(2.9,s));a.balls.push({bin:Math.floor((s+3)/6*NB),sy:110,vy:0});}if(a.total>=a.max&&a.balls.length===0){if(a.fade===undefined)a.fade=t;if(t-a.fade>2.0)a.bins=null;}for(let k=a.balls.length-1;k>=0;k--){const b=a.balls[k];b.vy+=0.8;b.sy+=b.vy;const landY=base-a.bins[b.bin]*sc-sc*0.5;if(b.sy>=landY){a.bins[b.bin]++;a.total++;a.balls.splice(k,1);}else{ctx.fillStyle=C.sun;ctx.beginPath();ctx.arc(pad+(b.bin+0.5)*bw,b.sy,5,0,Math.PI*2);ctx.fill();}}for(let i=0;i<NB;i++){const bh=a.bins[i]*sc;ctx.fillStyle='rgba(63,176,75,0.85)';ctx.fillRect(pad+i*bw+2,base-bh,bw-4,bh);}if(a.total>4){ctx.strokeStyle=C.sun;ctx.lineWidth=3;ctx.beginPath();let first=true;for(let v=-3;v<=3;v+=0.05){const pdf=Math.exp(-v*v/2)/Math.sqrt(2*Math.PI),cnt=pdf*(6/NB)*a.total,sx=pad+((v+3)/6)*(w-2*pad),sy=base-cnt*sc;first?(ctx.moveTo(sx,sy),first=false):ctx.lineTo(sx,sy);}ctx.stroke();}ctx.strokeStyle=C.gridb;ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(pad-12,base);ctx.lineTo(w-pad+12,base);ctx.stroke();}},
+    {id:'cnv-net',draw:(ctx,w,h,t)=>{const L=[3,5,5,2],pad=90,colW=(w-2*pad)/(L.length-1),nodes=L.map((n,li)=>{const arr=[],gap=(h-2*pad)/(n+1);for(let i=0;i<n;i++)arr.push({x:pad+li*colW,y:pad+gap*(i+1)});return arr;});for(let li=0;li<L.length-1;li++)nodes[li].forEach(p=>nodes[li+1].forEach(q=>{ctx.strokeStyle='rgba(255,255,255,0.08)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);ctx.stroke();}));const cyc=(t*0.32)%2,fwd=cyc<1,p=fwd?cyc:(cyc-1),NS=L.length-1,seg=p*NS,segi=Math.min(NS-1,Math.floor(seg)),segp=seg-segi,li=fwd?segi:(NS-1-segi),from=fwd?li:li+1,to=fwd?li+1:li,col=fwd?C.green:C.coral;nodes[from].forEach(p0=>nodes[to].forEach(q0=>{const x=p0.x+(q0.x-p0.x)*segp,y=p0.y+(q0.y-p0.y)*segp;ctx.fillStyle=col;ctx.globalAlpha=0.85;ctx.beginPath();ctx.arc(x,y,4,0,Math.PI*2);ctx.fill();}));ctx.globalAlpha=1;nodes.forEach((cl,li2)=>cl.forEach(nd=>{const hot=(li2===to);ctx.fillStyle=hot?col:C.ink;ctx.strokeStyle=hot?col:C.green4;ctx.lineWidth=2;if(hot){ctx.shadowColor=col;ctx.shadowBlur=14;}ctx.beginPath();ctx.arc(nd.x,nd.y,13,0,Math.PI*2);ctx.fill();ctx.stroke();ctx.shadowBlur=0;}));}}
+  ];
+  const sizes={};
+  const frame=(ts)=>{const t=ts/1000;for(const a of anims){const c=document.getElementById(a.id);if(!c){continue;}const cw=c.clientWidth,ch=c.clientHeight;if(!cw||!ch){continue;}const dpr=Math.min(2,window.devicePixelRatio||1);if(sizes[a.id]!==cw+'x'+ch){c.width=cw*dpr;c.height=ch*dpr;sizes[a.id]=cw+'x'+ch;}const ctx=c.getContext('2d');ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,cw,ch);ctx.fillStyle=C.ink;ctx.fillRect(0,0,cw,ch);if(!a.st)a.st={};a.draw(ctx,cw,ch,t,a.st);}requestAnimationFrame(frame);};
+  requestAnimationFrame(frame);
+})();
+</script>
+</body></html>
