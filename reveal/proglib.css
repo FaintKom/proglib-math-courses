@@ -17,8 +17,12 @@
   font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
 }
 .reveal-viewport{background:var(--pg-bg);}
-.reveal h1,.reveal h2,.reveal h3{text-transform:none;letter-spacing:-.5px;font-weight:800;}
-.reveal h1{font-size:2.4em;}
+.reveal h1,.reveal h2,.reveal h3{text-transform:none;letter-spacing:-.3px;font-weight:750;}
+.reveal h1{font-size:2.2em;letter-spacing:-1px;}
+.reveal .plotwrap{
+  background:var(--pg-bg2);border:1px solid #222b36;border-radius:16px;
+  padding:10px 16px;display:inline-block;margin:.15em auto;
+}
 .reveal .accent{color:var(--pg-accent);}
 .reveal .muted{color:var(--pg-muted);}
 .reveal .lead{font-size:1.15em;color:var(--pg-text);}
@@ -50,10 +54,15 @@
 .reveal .progress{color:var(--pg-accent);}
 
 /* ---------- KaTeX sizing on dark ---------- */
-.reveal .katex{font-size:1.15em;}
-.reveal .formula{margin:.3em 0;}
-.reveal .formula.big .katex{font-size:1.7em;}
-.reveal .note{color:var(--pg-muted);font-size:.6em;}
+.reveal .katex{font-size:1em;}
+.reveal .formula{
+  display:inline-block;max-width:90%;margin:.45em auto;padding:.35em .9em;
+  background:rgba(255,196,0,.06);border:1px solid #2a3340;border-radius:12px;
+}
+.reveal .formula .katex{font-size:1.05em;}
+.reveal .formula.big .katex{font-size:1.2em;}
+.reveal .note{color:var(--pg-muted);font-size:.52em;margin-top:.2em;}
+.reveal h2{font-size:1.5em;margin-bottom:.35em;}
 
 /* ---------- animation utilities ---------- */
 /* draw an SVG stroke in */

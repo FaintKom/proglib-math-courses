@@ -7,14 +7,13 @@
 <link rel="stylesheet" href="../reveal/dist/theme/black.css">
 <link rel="stylesheet" href="../reveal/proglib.css">
 <style>
-  .reveal svg.plot{width:62%;max-width:620px;height:auto;display:block;margin:.2em auto;}
-  .reveal .plot .axis{stroke:#2a3542;stroke-width:1.5;}
-  .reveal .plot .curve{stroke:var(--pg-accent);stroke-width:4;fill:none;}
-  .reveal .plot .tan{stroke:#7fd1ff;stroke-width:3;fill:none;}
+  .reveal svg.plot{width:440px;max-width:80vw;height:auto;display:block;}
+  .reveal .plot .axis{stroke:#39434f;stroke-width:1.5;}
+  .reveal .plot .curve{stroke:var(--pg-accent);stroke-width:3.5;fill:none;}
+  .reveal .plot .tan{stroke:#7fd1ff;stroke-width:2.5;fill:none;}
   .reveal .plot .pt{fill:#fff;}
-  .reveal .plot .area{fill:rgba(255,196,0,.22);stroke:none;}
-  .reveal .plot .bar{fill:rgba(127,209,255,.30);stroke:#7fd1ff;stroke-width:1;}
-  .reveal .ball{fill:var(--pg-accent);}
+  .reveal .plot .area{fill:rgba(255,196,0,.20);stroke:none;}
+  .reveal .ball{fill:var(--pg-accent);filter:drop-shadow(0 0 6px rgba(255,196,0,.6));}
 </style>
 </head><body>
 <div class="reveal"><div class="slides">
@@ -23,63 +22,62 @@
 <section class="title bg-anim" data-transition="zoom">
   <div class="bg-anim-layer"></div>
   <span class="kicker">proglib · математика для DS</span>
-  <h1>Курс 2A — <span class="accent">Матанализ</span></h1>
+  <h1>Матанализ</h1>
   <p class="lead">Calculus под градиентный спуск и оптимизацию</p>
-  <p><span class="pill">уровень 1 · вышка</span></p>
+  <p><span class="pill">курс 2A · уровень 1</span></p>
 </section>
 
 <!-- 2. FOR WHOM -->
 <section data-transition="slide">
   <h2>Для кого</h2>
   <ul class="lead">
-    <li class="fragment fade-up">Хочешь понимать ML «под капотом», а не вслепую</li>
-    <li class="fragment fade-up">Готовишься к собеседованиям с математикой</li>
-    <li class="fragment fade-up">Нужна база под <span class="accent">gradient descent</span> и оптимизацию</li>
+    <li class="fragment fade-up">Понимать ML «под капотом», а не вслепую</li>
+    <li class="fragment fade-up">Готовиться к собесам с математикой</li>
+    <li class="fragment fade-up">База под <span class="accent">gradient descent</span></li>
   </ul>
 </section>
 
 <!-- 3. DERIVATIVE = TANGENT -->
 <section data-transition="convex">
-  <h2>Производная — это <span class="accent">касательная</span></h2>
-  <svg class="plot" viewBox="0 0 600 320">
-    <line class="axis" x1="40" y1="280" x2="560" y2="280"/>
-    <line class="axis" x1="60" y1="40" x2="60" y2="300"/>
-    <path class="curve draw" d="M70,60 Q300,420 530,60"/>
-    <line class="tan draw2" x1="360" y1="250" x2="520" y2="92"/>
-    <circle class="pt pulse" cx="438" cy="175" r="6"/>
-  </svg>
-  <p class="formula big fragment fade-in">\( f'(x)=\lim_{h\to 0}\dfrac{f(x+h)-f(x)}{h} \)</p>
-  <p class="note fragment">наклон касательной в точке = мгновенная скорость изменения</p>
+  <h2>Производная = <span class="accent">касательная</span></h2>
+  <div class="plotwrap">
+    <svg class="plot" viewBox="0 0 600 300">
+      <line class="axis" x1="40" y1="260" x2="560" y2="260"/>
+      <line class="axis" x1="60" y1="30" x2="60" y2="280"/>
+      <path class="curve draw" d="M80,60 Q300,400 520,60"/>
+      <line class="tan draw2" x1="360" y1="232" x2="510" y2="92"/>
+      <circle class="pt pulse" cx="438" cy="163" r="6"/>
+    </svg>
+  </div>
+  <p class="formula fragment fade-in">\( f'(x)=\lim_{h\to 0}\frac{f(x+h)-f(x)}{h} \)</p>
+  <p class="note fragment">наклон касательной = мгновенная скорость изменения</p>
 </section>
 
 <!-- 4. GRADIENT DESCENT -->
 <section data-transition="convex">
   <h2><span class="accent">Градиентный спуск</span></h2>
-  <svg class="plot" viewBox="0 0 600 260">
-    <path class="curve" d="M40,40 Q300,360 560,40"/>
-    <circle class="ball" r="12" style="offset-path:path('M40,40 Q300,360 560,40');"/>
-  </svg>
-  <p class="formula big fragment fade-in">\( x_{k+1}=x_k-\eta\,\nabla f(x_k) \)</p>
-  <p class="note fragment">шаг против градиента → катимся к минимуму ошибки. Так учатся модели.</p>
+  <div class="plotwrap">
+    <svg class="plot" viewBox="0 0 600 230">
+      <path class="curve" d="M40,40 Q300,330 560,40"/>
+      <circle class="ball" r="11" style="offset-path:path('M40,40 Q300,330 560,40');"/>
+    </svg>
+  </div>
+  <p class="formula fragment fade-in">\( x_{k+1}=x_k-\eta\,\nabla f(x_k) \)</p>
+  <p class="note fragment">шаг против градиента → катимся к минимуму ошибки</p>
 </section>
 
 <!-- 5. INTEGRAL -->
 <section data-transition="convex">
-  <h2><span class="accent">Интеграл</span> — площадь под кривой</h2>
-  <svg class="plot" viewBox="0 0 600 300">
-    <line class="axis" x1="40" y1="260" x2="560" y2="260"/>
-    <g class="fragment fade-in">
-      <rect class="bar" x="120" y="150" width="60" height="110"/>
-      <rect class="bar" x="190" y="105" width="60" height="155"/>
-      <rect class="bar" x="260" y="92"  width="60" height="168"/>
-      <rect class="bar" x="330" y="105" width="60" height="155"/>
-      <rect class="bar" x="400" y="150" width="60" height="110"/>
-    </g>
-    <path class="area area-fill" d="M40,240 C170,60 430,60 560,240 L560,260 L40,260 Z"/>
-    <path class="curve" d="M40,240 C170,60 430,60 560,240"/>
-  </svg>
-  <p class="formula big fragment fade-in">\( \displaystyle\int_a^b f(x)\,dx=\lim_{n\to\infty}\sum_{i=1}^{n} f(x_i)\,\Delta x \)</p>
-  <p class="note fragment">сумма бесконечно тонких столбиков = накопленная величина</p>
+  <h2><span class="accent">Интеграл</span> = площадь</h2>
+  <div class="plotwrap">
+    <svg class="plot" viewBox="0 0 600 240">
+      <line class="axis" x1="40" y1="210" x2="560" y2="210"/>
+      <path class="area area-fill" d="M50,200 C180,50 420,50 550,200 L550,210 L50,210 Z"/>
+      <path class="curve" d="M50,200 C180,50 420,50 550,200"/>
+    </svg>
+  </div>
+  <p class="formula fragment fade-in">\( \int_a^b f(x)\,dx=\lim_{n\to\infty}\sum_i f(x_i)\,\Delta x \)</p>
+  <p class="note fragment">сумма тонких столбиков = накопленная величина</p>
 </section>
 
 <!-- 6. WHAT'S INSIDE -->
@@ -91,7 +89,7 @@
     <div class="card fragment fade-up">ФНП и экстремумы</div>
     <div class="card fragment fade-up">Формула Тейлора</div>
     <div class="card fragment fade-up">Интегралы</div>
-    <div class="card fragment fade-up">Числовые и функциональные ряды</div>
+    <div class="card fragment fade-up">Ряды</div>
   </div>
 </section>
 
@@ -99,7 +97,7 @@
 <section data-transition="slide">
   <h2>Результат</h2>
   <p class="lead">Понимаешь, <span class="accent">как оптимизируются модели</span>.</p>
-  <p class="lead fragment fade-up">ML перестаёт быть чёрным ящиком.</p>
+  <p class="lead fragment fade-up muted">ML перестаёт быть чёрным ящиком.</p>
 </section>
 
 <!-- 8. CTA -->
@@ -120,8 +118,7 @@ Reveal.initialize({
   transition:'convex', backgroundTransition:'fade',
   katex:{ local:'../reveal/katex', delimiters:[
     {left:'\\(',right:'\\)',display:false},
-    {left:'\\[',right:'\\]',display:true},
-    {left:'$$',right:'$$',display:true}
+    {left:'\\[',right:'\\]',display:true}
   ]},
   plugins:[ RevealMath.KaTeX ]
 });
