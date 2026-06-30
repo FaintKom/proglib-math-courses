@@ -6,55 +6,134 @@
 <link rel="stylesheet" href="../reveal/dist/reveal.css">
 <link rel="stylesheet" href="../reveal/dist/theme/black.css">
 <link rel="stylesheet" href="../reveal/proglib.css">
+<style>
+  .reveal svg.plot{width:520px;max-width:84vw;height:auto;display:block;}
+  .reveal .axis{stroke:#39434f;stroke-width:1.5;}
+  .reveal .pt{fill:var(--pg-accent2);}
+  .reveal .res{stroke:#ff7a8a;stroke-width:1.5;opacity:.6;}
+  .reveal .fit{stroke:var(--pg-accent);stroke-width:4;}
+  .reveal .sellrow{display:flex;align-items:center;justify-content:center;gap:26px;flex-wrap:wrap;}
+  .reveal .lossbox{font-variant-numeric:tabular-nums;text-align:left;}
+  .reveal .lossbox .lbl{font-size:.4em;letter-spacing:.14em;text-transform:uppercase;color:var(--pg-muted);}
+  .reveal .lossbox .val{font-size:1.5em;font-weight:800;color:var(--pg-accent);line-height:1;}
+  .reveal .sell{font-size:.78em;color:var(--pg-text);max-width:82%;margin:.3em auto 0;}
+  .reveal .sell b{color:var(--pg-accent);}
+  .reveal .tag{font-size:.5em;color:var(--pg-muted);}
+</style>
 </head><body>
 <div class="reveal"><div class="slides">
-<section class="title">
+
+<section class="title bg-anim" data-transition="fade">
+  <div class="bg-anim-layer"></div>
   <span class="kicker">proglib · математика для DS</span>
-  <h1>Курс 3 — <span class="accent">Pro</span></h1>
-  <p class="lead">Прикладная математика для ML · руки в коде</p>
-  <p><span class="pill">уровень 2 · практика</span></p>
+  <h1>Pro</h1>
+  <p class="lead">Математика <span class="accent">в коде</span> — строишь модели руками</p>
+  <p><span class="pill">курс 3 · практика</span></p>
 </section>
-<section>
-  <h2>Для кого</h2>
-  <ul class="lead">
-    <li>Хочешь строить ML-модели руками</li>
-    <li>Видеть математику в коде, а не в учебнике</li>
-    <li>Нужен проект в портфолио</li>
-  </ul>
+
+<section data-transition="fade">
+  <h2>Теория → <span class="accent">модель</span></h2>
+  <p class="lead">Знать формулу — половина дела.</p>
+  <p class="lead fragment fade-up">Вторая половина — <span class="accent">применить её в Python</span>.</p>
 </section>
-<section>
-  <h2>Проблема</h2>
-  <p class="lead">Теория есть — а <span class="accent">как применить</span> в Python?<br>
-  Разрыв между формулой и моделью.</p>
+
+<!-- HERO: regression fitting -->
+<section data-transition="fade" data-autoslide="0">
+  <h2>Модель <span class="accent">учится на данных</span></h2>
+  <div class="sellrow">
+    <div class="plotwrap">
+      <svg class="plot" viewBox="0 0 520 240" id="reg">
+        <line class="axis" x1="40" y1="210" x2="500" y2="210"/>
+        <line class="axis" x1="50" y1="20" x2="50" y2="220"/>
+        <g id="res"></g>
+        <line class="fit" id="fit" x1="0" y1="0" x2="0" y2="0"/>
+        <g id="pts"></g>
+      </svg>
+    </div>
+    <div class="lossbox">
+      <div class="lbl">Ошибка (MSE)</div>
+      <div class="val"><span id="mse">—</span></div>
+    </div>
+  </div>
+  <p class="formula fragment fade-in">\( \hat{y}=w x + b,\quad L=\frac1n\sum (y_i-\hat{y}_i)^2 \)</p>
+  <p class="sell fragment fade-up">Линия <b>сама подстраивается</b> под данные — минимизирует ошибку. Это и есть обучение.</p>
 </section>
-<section>
+
+<section data-transition="fade">
   <h2>Что внутри · <span class="accent">Colab + вебинары</span></h2>
   <div class="grid">
-    <div class="card">Векторы и матрицы в коде</div>
-    <div class="card">Линейная регрессия</div>
-    <div class="card">Матричные разложения</div>
-    <div class="card">Оптимизация, градиент</div>
-    <div class="card">Теорвер и статистика</div>
-    <div class="card">Финальный проект</div>
+    <div class="card fragment fade-up">Векторы и матрицы в коде</div>
+    <div class="card fragment fade-up">Линейная регрессия</div>
+    <div class="card fragment fade-up">Матричные разложения</div>
+    <div class="card fragment fade-up">Оптимизация, градиент</div>
+    <div class="card fragment fade-up">Теорвер и статистика</div>
+    <div class="card fragment fade-up">Финальный проект</div>
   </div>
+  <p class="tag fragment">вебинары · Google Colab · 3 ДЗ · проект</p>
 </section>
-<section>
-  <h2>Формат</h2>
-  <p class="lead">Вебинары · презентации · <span class="accent">Google Colab</span> · тесты · 3 ДЗ · проект.<br>
-  Бонус: word2vec, backprop, KNN, байес.</p>
+
+<section data-transition="fade">
+  <h2>После курса</h2>
+  <p class="lead fragment fade-up">✦ пишешь <span class="accent">ML-код</span> и понимаешь математику в нём</p>
+  <p class="lead fragment fade-up">✦ собираешь проект в портфолио</p>
+  <p class="lead fragment fade-up">✦ готов к реальным задачам DS</p>
 </section>
-<section>
-  <h2>Результат</h2>
-  <p class="lead">Пишешь <span class="accent">ML-код</span>, понимаешь математику в нём,<br>
-  собираешь проект в портфолио.</p>
-</section>
-<section class="title">
+
+<section class="title bg-anim" data-transition="fade">
+  <div class="bg-anim-layer"></div>
   <h2>От формул к моделям</h2>
   <p class="lead muted">Старт → Матан · Теорвер · Линал → <span class="accent">Pro</span></p>
   <a class="cta" href="https://lms.proglib.io/course/view.php?id=9">Записаться на курс →</a>
 </section>
+
 </div></div>
 <div class="footer"><b>proglib</b> · Математика для Data Science</div>
 <script src="../reveal/dist/reveal.js"></script>
-<script>Reveal.initialize({hash:true, transition:'slide', controls:true, progress:true});</script>
+<script src="../reveal/plugin/math/math.js"></script>
+<script>
+Reveal.initialize({
+  hash:true, controls:true, progress:true, center:true,
+  transition:'fade', backgroundTransition:'fade',
+  katex:{ local:'../reveal/katex', delimiters:[
+    {left:'\\(',right:'\\)',display:false},
+    {left:'\\[',right:'\\]',display:true}
+  ]},
+  plugins:[ RevealMath.KaTeX ]
+});
+
+// ---- linear regression fitting (selling) ----
+(function(){
+  const svg=document.getElementById('reg'); if(!svg) return;
+  const ptsG=document.getElementById('pts'), resG=document.getElementById('res');
+  const fit=document.getElementById('fit'), mseEl=document.getElementById('mse');
+  const D=[[80,190],[125,182],[170,168],[215,170],[260,150],[305,138],[350,132],[395,112],[440,100]];
+  D.forEach(([x,y])=>{ const c=document.createElementNS('http://www.w3.org/2000/svg','circle');
+    c.setAttribute('class','pt'); c.setAttribute('r','6'); c.setAttribute('cx',x); c.setAttribute('cy',y); ptsG.appendChild(c); });
+  const n=D.length; let sx=0,sy=0,sxy=0,sxx=0;
+  D.forEach(([x,y])=>{sx+=x;sy+=y;sxy+=x*y;sxx+=x*x;});
+  const wb=(n*sxy-sx*sy)/(n*sxx-sx*sx), bb=(sy-wb*sx)/n, meanY=sy/n;
+  const resL=D.map(()=>{ const l=document.createElementNS('http://www.w3.org/2000/svg','line');
+    l.setAttribute('class','res'); resG.appendChild(l); return l; });
+  const X1=55,X2=470;
+  const ease=p=>1-Math.pow(1-p,3);
+  const PERIOD=2600, HOLD=1200;
+  let start=0;
+  function frame(ts){
+    if(!start) start=ts;
+    let p=((ts-start)%(PERIOD+HOLD))/PERIOD; if(p>1)p=1;
+    const e=ease(p);
+    const w=wb*e, b=meanY*(1-e)+bb*e;
+    const yAt=x=>w*x+b;
+    fit.setAttribute('x1',X1); fit.setAttribute('y1',yAt(X1));
+    fit.setAttribute('x2',X2); fit.setAttribute('y2',yAt(X2));
+    let err=0;
+    D.forEach(([x,y],i)=>{ const yl=yAt(x); err+=(y-yl)*(y-yl);
+      resL[i].setAttribute('x1',x);resL[i].setAttribute('y1',y);
+      resL[i].setAttribute('x2',x);resL[i].setAttribute('y2',yl); });
+    mseEl.textContent=(err/n/100).toFixed(2);
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
 </body></html>

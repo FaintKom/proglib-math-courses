@@ -6,54 +6,130 @@
 <link rel="stylesheet" href="../reveal/dist/reveal.css">
 <link rel="stylesheet" href="../reveal/dist/theme/black.css">
 <link rel="stylesheet" href="../reveal/proglib.css">
+<style>
+  .reveal svg.plot{width:540px;max-width:84vw;height:auto;display:block;}
+  .reveal .bar2{fill:var(--pg-accent);opacity:.55;}
+  .reveal .bell{stroke:var(--pg-accent);stroke-width:3.5;fill:none;}
+  .reveal .axis{stroke:#39434f;stroke-width:1.5;}
+  .reveal .sellrow{display:flex;align-items:center;justify-content:center;gap:26px;flex-wrap:wrap;}
+  .reveal .lossbox{font-variant-numeric:tabular-nums;text-align:left;}
+  .reveal .lossbox .lbl{font-size:.4em;letter-spacing:.14em;text-transform:uppercase;color:var(--pg-muted);}
+  .reveal .lossbox .val{font-size:1.5em;font-weight:800;color:var(--pg-accent);line-height:1.05;}
+  .reveal .sell{font-size:.78em;color:var(--pg-text);max-width:82%;margin:.3em auto 0;}
+  .reveal .sell b{color:var(--pg-accent);}
+  .reveal .tag{font-size:.5em;color:var(--pg-muted);}
+</style>
 </head><body>
 <div class="reveal"><div class="slides">
-<section class="title">
+
+<section class="title bg-anim" data-transition="fade">
+  <div class="bg-anim-layer"></div>
   <span class="kicker">proglib · математика для DS</span>
-  <h1>Курс 2B — <span class="accent">Теорвер и статистика</span></h1>
-  <p class="lead">Ядро Data Science</p>
-  <p><span class="pill">уровень 1 · топ-спрос</span></p>
+  <h1>Теорвер и статистика</h1>
+  <p class="lead">Превращаешь <span class="accent">хаос данных</span> в решения</p>
+  <p><span class="pill">курс 2B · ядро DS</span></p>
 </section>
-<section>
-  <h2>Для кого</h2>
-  <ul class="lead">
-    <li>Хочешь читать данные, а не верить им на слово</li>
-    <li>A/B-тесты, метрики, риски, гипотезы</li>
-    <li>Метишь в аналитика / ML</li>
-  </ul>
+
+<section data-transition="fade">
+  <h2>Данные всегда <span class="accent">шумят</span></h2>
+  <p class="lead">A/B-тест, метрики, прогноз — везде неопределённость.</p>
+  <p class="lead fragment fade-up">Статистика превращает шум в <span class="accent">уверенные выводы</span>.</p>
 </section>
-<section>
-  <h2>Проблема</h2>
-  <p class="lead">DS — это про <span class="accent">неопределённость</span>.<br>
-  Без теорвера и статистики решения — это гадание.</p>
+
+<!-- HERO: samples -> bell curve -->
+<section data-transition="fade" data-autoslide="0">
+  <h2>Из <span class="accent">хаоса</span> — закон</h2>
+  <div class="sellrow">
+    <div class="plotwrap">
+      <svg class="plot" viewBox="0 0 600 250" id="dist">
+        <line class="axis" x1="40" y1="212" x2="560" y2="212"/>
+        <g id="bars"></g>
+        <path class="bell" id="bell" d="" style="opacity:0"/>
+      </svg>
+    </div>
+    <div class="lossbox">
+      <div class="lbl">Выборка</div>
+      <div class="val"><span id="n">0</span></div>
+      <div class="lbl" style="margin-top:.5em">в пределах σ</div>
+      <div class="val"><span id="sig">0</span>%</div>
+    </div>
+  </div>
+  <p class="formula fragment fade-in">\( P(A\mid B)=\dfrac{P(B\mid A)\,P(A)}{P(B)} \)</p>
+  <p class="sell fragment fade-up">Случайность подчиняется <b>законам</b>. Научишься их читать — и данные заговорят.</p>
 </section>
-<section>
+
+<section data-transition="fade">
   <h2>Что внутри · <span class="accent">14 уроков</span></h2>
   <div class="grid">
-    <div class="card">Комбинаторика</div>
-    <div class="card">Классическая вероятность</div>
-    <div class="card">Случайные величины</div>
-    <div class="card">Распределения</div>
-    <div class="card">Оценки параметров</div>
-    <div class="card">Проверка гипотез</div>
+    <div class="card fragment fade-up">Комбинаторика</div>
+    <div class="card fragment fade-up">Классическая вероятность</div>
+    <div class="card fragment fade-up">Случайные величины</div>
+    <div class="card fragment fade-up">Распределения</div>
+    <div class="card fragment fade-up">Оценки параметров</div>
+    <div class="card fragment fade-up">Проверка гипотез</div>
   </div>
+  <p class="tag fragment">лекции · тесты · ДЗ с самопроверкой</p>
 </section>
-<section>
-  <h2>Формат</h2>
-  <p class="lead">Лекции (PDF) · <span class="accent">тесты</span> · ДЗ с самопроверкой.</p>
+
+<section data-transition="fade">
+  <h2>После курса</h2>
+  <p class="lead fragment fade-up">✦ читаешь данные, а не веришь им на слово</p>
+  <p class="lead fragment fade-up">✦ ставишь и <span class="accent">проверяешь гипотезы</span></p>
+  <p class="lead fragment fade-up">✦ решения по статистике, не по интуиции</p>
 </section>
-<section>
-  <h2>Результат</h2>
-  <p class="lead">Читаешь данные, строишь и <span class="accent">проверяешь гипотезы</span>.<br>
-  Решения — по статистике, не по интуиции.</p>
-</section>
-<section class="title">
-  <h2>Освой ядро DS</h2>
+
+<section class="title bg-anim" data-transition="fade">
+  <div class="bg-anim-layer"></div>
+  <h2>Освой ядро Data Science</h2>
   <p class="lead muted">Матан · Теорвер · Линал → Pro</p>
   <a class="cta" href="https://lms.proglib.io/course/view.php?id=9">Записаться на курс →</a>
 </section>
+
 </div></div>
 <div class="footer"><b>proglib</b> · Математика для Data Science</div>
 <script src="../reveal/dist/reveal.js"></script>
-<script>Reveal.initialize({hash:true, transition:'slide', controls:true, progress:true});</script>
+<script src="../reveal/plugin/math/math.js"></script>
+<script>
+Reveal.initialize({
+  hash:true, controls:true, progress:true, center:true,
+  transition:'fade', backgroundTransition:'fade',
+  katex:{ local:'../reveal/katex', delimiters:[
+    {left:'\\(',right:'\\)',display:false},
+    {left:'\\[',right:'\\]',display:true}
+  ]},
+  plugins:[ RevealMath.KaTeX ]
+});
+
+// ---- samples -> bell curve (selling) ----
+(function(){
+  const barsG=document.getElementById('bars');
+  const bell=document.getElementById('bell');
+  const nEl=document.getElementById('n');
+  const sigEl=document.getElementById('sig');
+  if(!barsG) return;
+  const targets=[14,38,74,116,150,116,74,38,14];
+  const base=212, x0=70, step=52, bw=40;
+  const rects=targets.map((h,i)=>{
+    const r=document.createElementNS('http://www.w3.org/2000/svg','rect');
+    r.setAttribute('class','bar2'); r.setAttribute('x',x0+i*step); r.setAttribute('width',bw);
+    barsG.appendChild(r); return r;
+  });
+  let d='M'; for(let x=44;x<=552;x+=8){ const y=base-160*Math.exp(-Math.pow((x-298)/95,2)/2); d+=(x===44?'':' L')+x.toFixed(0)+','+y.toFixed(1); }
+  bell.setAttribute('d',d);
+  const ease=p=>1-Math.pow(1-p,3);
+  const PERIOD=3000, HOLD=1100;
+  let start=0;
+  function frame(ts){
+    if(!start) start=ts;
+    let p=((ts-start)%(PERIOD+HOLD))/PERIOD; if(p>1)p=1;
+    const e=ease(p);
+    rects.forEach((r,i)=>{ const h=targets[i]*e; r.setAttribute('y',base-h); r.setAttribute('height',h); });
+    bell.style.opacity = p>0.55 ? Math.min((p-0.55)/0.3,1) : 0;
+    nEl.textContent = Math.round(10000*e).toLocaleString('ru-RU');
+    sigEl.textContent = Math.round(68*e);
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
 </body></html>

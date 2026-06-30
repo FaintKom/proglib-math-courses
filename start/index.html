@@ -4,65 +4,133 @@
 <title>Старт. Базовая математика — proglib</title>
 <link rel="stylesheet" href="../reveal/dist/reset.css">
 <link rel="stylesheet" href="../reveal/dist/reveal.css">
-<link rel="stylesheet" href="../reveal/dist/theme/black.css" id="theme">
+<link rel="stylesheet" href="../reveal/dist/theme/black.css">
 <link rel="stylesheet" href="../reveal/proglib.css">
+<style>
+  .reveal svg.plot{width:500px;max-width:84vw;height:auto;display:block;}
+  .reveal .axis{stroke:#39434f;stroke-width:1.5;}
+  .reveal .gdot{fill:var(--pg-accent);}
+  .reveal .gcurve{stroke:var(--pg-accent);stroke-width:3;fill:none;}
+  .reveal .sellrow{display:flex;align-items:center;justify-content:center;gap:26px;flex-wrap:wrap;}
+  .reveal .lossbox{font-variant-numeric:tabular-nums;text-align:left;}
+  .reveal .lossbox .lbl{font-size:.4em;letter-spacing:.14em;text-transform:uppercase;color:var(--pg-muted);}
+  .reveal .lossbox .val{font-size:1.5em;font-weight:800;color:var(--pg-accent);line-height:1;}
+  .reveal .sell{font-size:.78em;color:var(--pg-text);max-width:82%;margin:.3em auto 0;}
+  .reveal .sell b{color:var(--pg-accent);}
+  .reveal .tag{font-size:.5em;color:var(--pg-muted);}
+</style>
 </head><body>
 <div class="reveal"><div class="slides">
 
-<section class="title" data-auto-animate>
+<section class="title bg-anim" data-transition="fade">
+  <div class="bg-anim-layer"></div>
   <span class="kicker">proglib · математика для DS</span>
-  <h1>Курс 1 — <span class="accent">Старт</span></h1>
-  <p class="lead">Базовая математика с нуля</p>
-  <p><span class="pill">уровень 0 · с нуля</span></p>
+  <h1>Старт</h1>
+  <p class="lead">Базовая математика <span class="accent">с нуля</span></p>
+  <p><span class="pill">курс 1 · уровень 0</span></p>
 </section>
 
-<section>
-  <h2>Для кого</h2>
-  <ul class="lead">
-    <li>Идёшь в Data Science, но математику забыл</li>
-    <li>Школьная база «поплыла»: дроби, графики, уравнения</li>
-    <li>Нужен фундамент перед вышкой</li>
-  </ul>
+<section data-transition="fade">
+  <h2>Математику <span class="accent">забыл</span>?</h2>
+  <p class="lead">Дроби, графики, уравнения — как в тумане.</p>
+  <p class="lead fragment fade-up">Это нормально. И это <span class="accent">чинится</span>.</p>
 </section>
 
-<section>
-  <h2>Проблема</h2>
-  <p class="lead">Без школьной математики высшая <span class="accent">не заходит</span>.<br>
-  Пробелы копятся — и DS кажется недостижимым.</p>
+<!-- HERO: scattered -> clean curve -->
+<section data-transition="fade" data-autoslide="0">
+  <h2>Из <span class="accent">разрозненного</span> — стройная база</h2>
+  <div class="sellrow">
+    <div class="plotwrap">
+      <svg class="plot" viewBox="0 0 520 240" id="st">
+        <line class="axis" x1="40" y1="200" x2="500" y2="200"/>
+        <line class="axis" x1="60" y1="20" x2="60" y2="215"/>
+        <path class="gcurve" id="gcurve" d="" style="opacity:0"/>
+        <g id="gdots"></g>
+      </svg>
+    </div>
+    <div class="lossbox">
+      <div class="lbl">Прогресс</div>
+      <div class="val"><span id="prog">0</span>%</div>
+      <div class="lbl" style="margin-top:.5em">модулей</div>
+      <div class="val">12</div>
+    </div>
+  </div>
+  <p class="formula fragment fade-in">\( y = x^2,\quad f'(x),\quad \int f\,dx \)</p>
+  <p class="sell fragment fade-up">Шаг за шагом — от чисел до производной. <b>Фундамент</b>, без которого в DS никуда.</p>
 </section>
 
-<section>
+<section data-transition="fade">
   <h2>Что внутри · <span class="accent">12 модулей</span></h2>
   <div class="grid">
-    <div class="card">Множества, последовательности</div>
-    <div class="card">Уравнения: рацио, иррацио</div>
-    <div class="card">Неравенства</div>
-    <div class="card">Функции и графики</div>
-    <div class="card">Производная</div>
-    <div class="card">Интеграл + контрольная</div>
+    <div class="card fragment fade-up">Множества, последовательности</div>
+    <div class="card fragment fade-up">Уравнения и неравенства</div>
+    <div class="card fragment fade-up">Функции и графики</div>
+    <div class="card fragment fade-up">Производная</div>
+    <div class="card fragment fade-up">Интеграл</div>
+    <div class="card fragment fade-up">Контрольная</div>
   </div>
+  <p class="tag fragment">короткая теория + тест на каждый урок</p>
 </section>
 
-<section>
-  <h2>Формат</h2>
-  <p class="lead">Короткая теория + <span class="accent">тест</span> на каждый урок.<br>
-  Презентации, разбор, самопроверка. В своём темпе.</p>
+<section data-transition="fade">
+  <h2>После курса</h2>
+  <p class="lead fragment fade-up">✦ больше не плывёшь от формул</p>
+  <p class="lead fragment fade-up">✦ уверенная <span class="accent">школьная база</span></p>
+  <p class="lead fragment fade-up">✦ готов к высшей математике для DS</p>
 </section>
 
-<section>
-  <h2>Результат</h2>
-  <p class="lead">Больше не плывёшь от формул.<br>
-  Фундамент собран — <span class="accent">готов к высшей математике для DS</span>.</p>
-</section>
-
-<section class="title">
+<section class="title bg-anim" data-transition="fade">
+  <div class="bg-anim-layer"></div>
   <h2>Начни с фундамента</h2>
-  <p class="lead muted">Старт → Матан · Теорвер · Линал → Pro</p>
+  <p class="lead muted"><span class="accent">Старт</span> → Матан · Теорвер · Линал → Pro</p>
   <a class="cta" href="https://lms.proglib.io/course/view.php?id=9">Записаться на курс →</a>
 </section>
 
 </div></div>
 <div class="footer"><b>proglib</b> · Математика для Data Science</div>
 <script src="../reveal/dist/reveal.js"></script>
-<script>Reveal.initialize({hash:true, transition:'slide', controls:true, progress:true});</script>
+<script src="../reveal/plugin/math/math.js"></script>
+<script>
+Reveal.initialize({
+  hash:true, controls:true, progress:true, center:true,
+  transition:'fade', backgroundTransition:'fade',
+  katex:{ local:'../reveal/katex', delimiters:[
+    {left:'\\(',right:'\\)',display:false},
+    {left:'\\[',right:'\\]',display:true}
+  ]},
+  plugins:[ RevealMath.KaTeX ]
+});
+
+// ---- scattered dots converge to a clean parabola y=x^2 (selling) ----
+(function(){
+  const svg=document.getElementById('st'); if(!svg) return;
+  const g=document.getElementById('gdots'), curve=document.getElementById('gcurve'), progEl=document.getElementById('prog');
+  const N=13, X1=90, X2=460;
+  const yAt=x=>{ const u=(x-275)/185; return 180 - 130*u*u; };  // vertex bottom-center, arms up
+  const targets=[], dots=[];
+  for(let i=0;i<N;i++){ const x=X1+(X2-X1)*i/(N-1); targets.push([x, yAt(x)]); }
+  for(let i=0;i<N;i++){
+    const c=document.createElementNS('http://www.w3.org/2000/svg','circle');
+    c.setAttribute('class','gdot'); c.setAttribute('r','5'); g.appendChild(c); dots.push(c);
+  }
+  curve.setAttribute('d','M'+targets.map(t=>t[0].toFixed(0)+','+t[1].toFixed(1)).join(' L'));
+  const rnd=()=>[X1+(X2-X1)*Math.random(), 30+160*Math.random()];
+  const ease=p=>1-Math.pow(1-p,3);
+  const PERIOD=2400, HOLD=1300;
+  let start=0, scatter=targets.map(rnd);
+  function frame(ts){
+    if(!start) start=ts;
+    const cyc=(ts-start)%(PERIOD+HOLD);
+    let p=cyc/PERIOD; if(p>1)p=1;
+    const e=ease(p);
+    dots.forEach((c,i)=>{ const [sx,sy]=scatter[i],[tx,ty]=targets[i];
+      c.setAttribute('cx',sx+(tx-sx)*e); c.setAttribute('cy',sy+(ty-sy)*e); });
+    curve.style.opacity = p>0.6 ? Math.min((p-0.6)/0.3,1):0;
+    progEl.textContent = Math.round(100*e);
+    if(cyc>PERIOD+HOLD-30) scatter=targets.map(rnd);
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
 </body></html>
