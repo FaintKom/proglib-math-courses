@@ -7,13 +7,21 @@
 <link rel="stylesheet" href="../reveal/dist/theme/black.css">
 <link rel="stylesheet" href="../reveal/proglib.css">
 <style>
-  .reveal svg.plot{width:440px;max-width:80vw;height:auto;display:block;}
+  .reveal svg.plot{width:520px;max-width:84vw;height:auto;display:block;}
   .reveal .plot .axis{stroke:#39434f;stroke-width:1.5;}
-  .reveal .plot .curve{stroke:var(--pg-accent);stroke-width:3.5;fill:none;}
-  .reveal .plot .tan{stroke:#7fd1ff;stroke-width:2.5;fill:none;}
-  .reveal .plot .pt{fill:#fff;}
-  .reveal .plot .area{fill:rgba(255,196,0,.20);stroke:none;}
-  .reveal .ball{fill:var(--pg-accent);filter:drop-shadow(0 0 6px rgba(255,196,0,.6));}
+  .reveal .plot .curve{stroke:#3a4654;stroke-width:3;fill:none;}
+  .reveal .plot .curve.hot{stroke:var(--pg-accent);}
+  .reveal .plot .tan{stroke:#7fd1ff;stroke-width:3;fill:none;}
+  .reveal .plot .area{fill:rgba(255,196,0,.18);stroke:none;}
+  .reveal .ball{fill:var(--pg-accent);filter:drop-shadow(0 0 8px rgba(255,196,0,.7));}
+  .reveal .step{fill:var(--pg-accent);opacity:.35;}
+  .reveal .sellrow{display:flex;align-items:center;justify-content:center;gap:26px;flex-wrap:wrap;}
+  .reveal .lossbox{font-variant-numeric:tabular-nums;text-align:left;}
+  .reveal .lossbox .lbl{font-size:.4em;letter-spacing:.14em;text-transform:uppercase;color:var(--pg-muted);}
+  .reveal .lossbox .val{font-size:1.5em;font-weight:800;color:var(--pg-accent);line-height:1;}
+  .reveal .sell{font-size:.78em;color:var(--pg-text);max-width:80%;margin:.3em auto 0;}
+  .reveal .sell b{color:var(--pg-accent);}
+  .reveal .tag{font-size:.5em;color:var(--pg-muted);}
 </style>
 </head><body>
 <div class="reveal"><div class="slides">
@@ -23,87 +31,77 @@
   <div class="bg-anim-layer"></div>
   <span class="kicker">proglib · математика для DS</span>
   <h1>Матанализ</h1>
-  <p class="lead">Calculus под градиентный спуск и оптимизацию</p>
+  <p class="lead">Математика, на которой <span class="accent">учится</span> любая модель</p>
   <p><span class="pill">курс 2A · уровень 1</span></p>
 </section>
 
-<!-- 2. FOR WHOM -->
+<!-- 2. HOOK -->
 <section data-transition="slide">
-  <h2>Для кого</h2>
-  <ul class="lead">
-    <li class="fragment fade-up">Понимать ML «под капотом», а не вслепую</li>
-    <li class="fragment fade-up">Готовиться к собесам с математикой</li>
-    <li class="fragment fade-up">База под <span class="accent">gradient descent</span></li>
-  </ul>
+  <h2>ML — это не магия</h2>
+  <p class="lead">Под капотом каждой нейросети — <span class="accent">матан</span>.</p>
+  <p class="lead fragment fade-up">Поймёшь его — и «чёрный ящик» станет прозрачным.</p>
 </section>
 
-<!-- 3. DERIVATIVE = TANGENT -->
+<!-- 3. HERO: gradient descent (selling) -->
+<section data-transition="convex" data-autoslide="0">
+  <h2>Так <span class="accent">учится</span> нейросеть</h2>
+  <div class="sellrow">
+    <div class="plotwrap">
+      <svg class="plot" viewBox="0 0 600 240" id="gd">
+        <path class="curve hot" d="M40,30 Q300,330 560,30"/>
+        <g id="gd-steps"></g>
+        <circle class="ball" id="gd-ball" r="11" cx="60" cy="60"/>
+      </svg>
+    </div>
+    <div class="lossbox">
+      <div class="lbl">Ошибка модели</div>
+      <div class="val"><span id="gd-loss">8.42</span></div>
+    </div>
+  </div>
+  <p class="formula fragment fade-in">\( w_{k+1}=w_k-\eta\,\nabla L(w_k) \)</p>
+  <p class="sell fragment fade-up"><b>Градиентный спуск</b> — сердце обучения любой модели. На курсе разберёшь его до конца.</p>
+</section>
+
+<!-- 4. derivative = sensitivity (selling) -->
 <section data-transition="convex">
-  <h2>Производная = <span class="accent">касательная</span></h2>
+  <h2>Производная = <span class="accent">чувствительность</span></h2>
   <div class="plotwrap">
-    <svg class="plot" viewBox="0 0 600 300">
-      <line class="axis" x1="40" y1="260" x2="560" y2="260"/>
-      <line class="axis" x1="60" y1="30" x2="60" y2="280"/>
-      <path class="curve draw" d="M80,60 Q300,400 520,60"/>
-      <line class="tan draw2" x1="360" y1="232" x2="510" y2="92"/>
-      <circle class="pt pulse" cx="438" cy="163" r="6"/>
+    <svg class="plot" viewBox="0 0 600 260" id="tan">
+      <line class="axis" x1="40" y1="230" x2="560" y2="230"/>
+      <path class="curve hot" d="M70,40 Q300,420 530,40"/>
+      <line class="tan" id="tan-line" x1="0" y1="0" x2="0" y2="0"/>
+      <circle class="ball" id="tan-pt" r="7" cx="0" cy="0"/>
     </svg>
   </div>
-  <p class="formula fragment fade-in">\( f'(x)=\lim_{h\to 0}\frac{f(x+h)-f(x)}{h} \)</p>
-  <p class="note fragment">наклон касательной = мгновенная скорость изменения</p>
+  <p class="sell fragment fade-up">Насколько <b>сильно изменится ответ</b>, если чуть поменять вход. Это и крутит обучение.</p>
 </section>
 
-<!-- 4. GRADIENT DESCENT -->
-<section data-transition="convex">
-  <h2><span class="accent">Градиентный спуск</span></h2>
-  <div class="plotwrap">
-    <svg class="plot" viewBox="0 0 600 230">
-      <path class="curve" d="M40,40 Q300,330 560,40"/>
-      <circle class="ball" r="11" style="offset-path:path('M40,40 Q300,330 560,40');"/>
-    </svg>
-  </div>
-  <p class="formula fragment fade-in">\( x_{k+1}=x_k-\eta\,\nabla f(x_k) \)</p>
-  <p class="note fragment">шаг против градиента → катимся к минимуму ошибки</p>
-</section>
-
-<!-- 5. INTEGRAL -->
-<section data-transition="convex">
-  <h2><span class="accent">Интеграл</span> = площадь</h2>
-  <div class="plotwrap">
-    <svg class="plot" viewBox="0 0 600 240">
-      <line class="axis" x1="40" y1="210" x2="560" y2="210"/>
-      <path class="area area-fill" d="M50,200 C180,50 420,50 550,200 L550,210 L50,210 Z"/>
-      <path class="curve" d="M50,200 C180,50 420,50 550,200"/>
-    </svg>
-  </div>
-  <p class="formula fragment fade-in">\( \int_a^b f(x)\,dx=\lim_{n\to\infty}\sum_i f(x_i)\,\Delta x \)</p>
-  <p class="note fragment">сумма тонких столбиков = накопленная величина</p>
-</section>
-
-<!-- 6. WHAT'S INSIDE -->
+<!-- 5. what's inside -->
 <section data-transition="slide">
   <h2>Что внутри · <span class="accent">14 уроков</span></h2>
   <div class="grid">
     <div class="card fragment fade-up">Пределы и непрерывность</div>
     <div class="card fragment fade-up">Производные</div>
-    <div class="card fragment fade-up">ФНП и экстремумы</div>
+    <div class="card fragment fade-up">Функции многих переменных</div>
     <div class="card fragment fade-up">Формула Тейлора</div>
     <div class="card fragment fade-up">Интегралы</div>
     <div class="card fragment fade-up">Ряды</div>
   </div>
+  <p class="tag fragment">лекции · тесты · ДЗ с самопроверкой</p>
 </section>
 
-<!-- 7. RESULT -->
+<!-- 6. result -->
 <section data-transition="slide">
-  <h2>Результат</h2>
-  <p class="lead">Понимаешь, <span class="accent">как оптимизируются модели</span>.</p>
-  <p class="lead fragment fade-up muted">ML перестаёт быть чёрным ящиком.</p>
+  <h2>После курса</h2>
+  <p class="lead fragment fade-up">✦ читаешь, <span class="accent">как обучаются модели</span></p>
+  <p class="lead fragment fade-up">✦ не плывёшь на собесе по математике</p>
+  <p class="lead fragment fade-up">✦ оптимизация перестаёт пугать</p>
 </section>
 
-<!-- 8. CTA -->
+<!-- 7. CTA -->
 <section class="title bg-anim" data-transition="zoom">
   <div class="bg-anim-layer"></div>
-  <h2>Освой матан для DS</h2>
+  <h2>Загляни под капот ML</h2>
   <p class="lead muted">Матан · Теорвер · Линал → Pro</p>
   <a class="cta" href="https://lms.proglib.io/course/view.php?id=9">Записаться на курс →</a>
 </section>
@@ -122,5 +120,63 @@ Reveal.initialize({
   ]},
   plugins:[ RevealMath.KaTeX ]
 });
+
+// ---- helpers: quadratic bezier ----
+const Q=(t,a,b,c)=>(1-t)*(1-t)*a+2*(1-t)*t*b+t*t*c;
+const dQ=(t,a,b,c)=>2*(1-t)*(b-a)+2*t*(c-b);
+
+// ---- gradient descent (selling) ----
+(function(){
+  const ball=document.getElementById('gd-ball');
+  const lossEl=document.getElementById('gd-loss');
+  const stepsG=document.getElementById('gd-steps');
+  if(!ball) return;
+  const PX=[40,300,560], PY=[30,330,30];
+  const ts=[0.05,0.16,0.28,0.40,0.50];
+  const losses=[8.42,4.10,1.83,0.61,0.04];
+  let i=0, last=0;
+  const STEP=620, HOLD=1300;
+  function place(t){ ball.setAttribute('cx',Q(t,...PX)); ball.setAttribute('cy',Q(t,...PY)); }
+  function reset(){ stepsG.innerHTML=''; i=0; place(ts[0]); lossEl.textContent=losses[0].toFixed(2); }
+  function addStep(t){
+    const c=document.createElementNS('http://www.w3.org/2000/svg','circle');
+    c.setAttribute('class','step'); c.setAttribute('r','6');
+    c.setAttribute('cx',Q(t,...PX)); c.setAttribute('cy',Q(t,...PY));
+    stepsG.appendChild(c);
+  }
+  reset();
+  function loop(ts0){
+    if(!last) last=ts0;
+    const dt=ts0-last;
+    const wait=(i>=ts.length-1)?HOLD:STEP;
+    if(dt>=wait){
+      last=ts0;
+      if(i>=ts.length-1){ reset(); }
+      else{ addStep(ts[i]); i++; place(ts[i]); lossEl.textContent=losses[i].toFixed(2); }
+    }
+    requestAnimationFrame(loop);
+  }
+  requestAnimationFrame(loop);
+})();
+
+// ---- tangent sweep (selling) ----
+(function(){
+  const line=document.getElementById('tan-line');
+  const pt=document.getElementById('tan-pt');
+  if(!line) return;
+  const PX=[70,300,530], PY=[40,420,40];
+  function frame(ts0){
+    const p=(ts0/2200)%2;              // 0..2
+    const t=0.12 + (p<1? p : 2-p)*0.76; // ping-pong 0.12..0.88
+    const x=Q(t,...PX), y=Q(t,...PY);
+    const sx=dQ(t,...PX), sy=dQ(t,...PY);
+    const n=Math.hypot(sx,sy)||1, ux=sx/n*90, uy=sy/n*90;
+    line.setAttribute('x1',x-ux); line.setAttribute('y1',y-uy);
+    line.setAttribute('x2',x+ux); line.setAttribute('y2',y+uy);
+    pt.setAttribute('cx',x); pt.setAttribute('cy',y);
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
 </script>
 </body></html>
