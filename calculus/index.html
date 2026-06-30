@@ -12,8 +12,8 @@
   .reveal .plot .curve{stroke:#3a4654;stroke-width:3;fill:none;}
   .reveal .plot .curve.hot{stroke:var(--pg-accent);}
   .reveal .plot .tan{stroke:#7fd1ff;stroke-width:3;fill:none;}
-  .reveal .plot .area{fill:rgba(255,196,0,.18);stroke:none;}
-  .reveal .ball{fill:var(--pg-accent);filter:drop-shadow(0 0 8px rgba(255,196,0,.7));}
+  .reveal .plot .area{fill:rgba(55,143,246,.18);stroke:none;}
+  .reveal .ball{fill:var(--pg-accent);filter:drop-shadow(0 0 8px rgba(55,143,246,.75));}
   .reveal .step{fill:var(--pg-accent);opacity:.35;}
   .reveal .sellrow{display:flex;align-items:center;justify-content:center;gap:26px;flex-wrap:wrap;}
   .reveal .lossbox{font-variant-numeric:tabular-nums;text-align:left;}
@@ -27,7 +27,7 @@
 <div class="reveal"><div class="slides">
 
 <!-- 1. TITLE -->
-<section class="title bg-anim" data-transition="zoom">
+<section class="title bg-anim" data-transition="fade">
   <div class="bg-anim-layer"></div>
   <span class="kicker">proglib · математика для DS</span>
   <h1>Матанализ</h1>
@@ -36,14 +36,14 @@
 </section>
 
 <!-- 2. HOOK -->
-<section data-transition="slide">
+<section data-transition="fade">
   <h2>ML — это не магия</h2>
   <p class="lead">Под капотом каждой нейросети — <span class="accent">матан</span>.</p>
   <p class="lead fragment fade-up">Поймёшь его — и «чёрный ящик» станет прозрачным.</p>
 </section>
 
 <!-- 3. HERO: gradient descent (selling) -->
-<section data-transition="convex" data-autoslide="0">
+<section data-transition="fade" data-autoslide="0">
   <h2>Так <span class="accent">учится</span> нейросеть</h2>
   <div class="sellrow">
     <div class="plotwrap">
@@ -63,7 +63,7 @@
 </section>
 
 <!-- 4. derivative = sensitivity (selling) -->
-<section data-transition="convex">
+<section data-transition="fade">
   <h2>Производная = <span class="accent">чувствительность</span></h2>
   <div class="plotwrap">
     <svg class="plot" viewBox="0 0 600 260" id="tan">
@@ -77,7 +77,7 @@
 </section>
 
 <!-- 5. what's inside -->
-<section data-transition="slide">
+<section data-transition="fade">
   <h2>Что внутри · <span class="accent">14 уроков</span></h2>
   <div class="grid">
     <div class="card fragment fade-up">Пределы и непрерывность</div>
@@ -91,7 +91,7 @@
 </section>
 
 <!-- 6. result -->
-<section data-transition="slide">
+<section data-transition="fade">
   <h2>После курса</h2>
   <p class="lead fragment fade-up">✦ читаешь, <span class="accent">как обучаются модели</span></p>
   <p class="lead fragment fade-up">✦ не плывёшь на собесе по математике</p>
@@ -99,7 +99,7 @@
 </section>
 
 <!-- 7. CTA -->
-<section class="title bg-anim" data-transition="zoom">
+<section class="title bg-anim" data-transition="fade">
   <div class="bg-anim-layer"></div>
   <h2>Загляни под капот ML</h2>
   <p class="lead muted">Матан · Теорвер · Линал → Pro</p>
@@ -113,7 +113,7 @@
 <script>
 Reveal.initialize({
   hash:true, controls:true, progress:true, center:true,
-  transition:'convex', backgroundTransition:'fade',
+  transition:'fade', backgroundTransition:'fade',
   katex:{ local:'../reveal/katex', delimiters:[
     {left:'\\(',right:'\\)',display:false},
     {left:'\\[',right:'\\]',display:true}

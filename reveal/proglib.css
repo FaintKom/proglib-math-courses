@@ -1,11 +1,12 @@
 /* proglib brand overrides on top of reveal black theme */
 :root{
-  --pg-bg:#0e1217;
-  --pg-bg2:#151b23;
-  --pg-accent:#ffc400;      /* proglib amber */
-  --pg-accent2:#ff7a18;     /* orange */
-  --pg-text:#dde3ea;
-  --pg-muted:#8b97a7;
+  --pg-bg:#1c2433;          /* deep navy (proglib #333A4D darkened) */
+  --pg-bg2:#26303f;
+  --pg-accent:#378ff6;      /* proglib brand blue */
+  --pg-accent2:#5aa7ff;
+  --pg-text:#e6ebf2;
+  --pg-muted:#8b92a5;       /* proglib muted */
+  --pg-border:#33415a;
 }
 .reveal{
   --r-background-color:var(--pg-bg);
@@ -57,7 +58,7 @@
 .reveal .katex{font-size:1em;}
 .reveal .formula{
   display:inline-block;max-width:90%;margin:.45em auto;padding:.35em .9em;
-  background:rgba(255,196,0,.06);border:1px solid #2a3340;border-radius:12px;
+  background:rgba(55,143,246,.08);border:1px solid var(--pg-border);border-radius:12px;
 }
 .reveal .formula .katex{font-size:1.05em;}
 .reveal .formula.big .katex{font-size:1.2em;}
@@ -98,8 +99,8 @@
 /* animated accent gradient title bg */
 .reveal .slides section.bg-anim{}
 .bg-anim-layer{position:absolute;inset:0;z-index:-1;
-  background:radial-gradient(1200px 600px at 20% 10%, rgba(255,196,0,.10), transparent 60%),
-             radial-gradient(900px 500px at 90% 90%, rgba(255,122,24,.10), transparent 60%);
+  background:radial-gradient(1200px 600px at 20% 10%, rgba(55,143,246,.16), transparent 60%),
+             radial-gradient(900px 500px at 90% 90%, rgba(90,167,255,.12), transparent 60%);
   animation:pg-bg 8s ease-in-out infinite alternate;}
 @keyframes pg-bg{to{transform:translate3d(0,-12px,0) scale(1.05);}}
 
