@@ -48,3 +48,53 @@
 }
 .reveal .footer b{color:var(--pg-accent);}
 .reveal .progress{color:var(--pg-accent);}
+
+/* ---------- KaTeX sizing on dark ---------- */
+.reveal .katex{font-size:1.15em;}
+.reveal .formula{margin:.3em 0;}
+.reveal .formula.big .katex{font-size:1.7em;}
+.reveal .note{color:var(--pg-muted);font-size:.6em;}
+
+/* ---------- animation utilities ---------- */
+/* draw an SVG stroke in */
+.reveal .draw{stroke-dasharray:1400;stroke-dashoffset:1400;}
+.reveal .slides section.present .draw{animation:pg-draw 1.6s ease forwards;}
+@keyframes pg-draw{to{stroke-dashoffset:0;}}
+
+.reveal .draw2{stroke-dasharray:1400;stroke-dashoffset:1400;}
+.reveal .slides section.present .draw2{animation:pg-draw 1.6s .6s ease forwards;}
+
+/* pulse a point */
+.reveal .pulse{transform-box:fill-box;transform-origin:center;animation:pg-pulse 1.6s ease-in-out infinite;}
+@keyframes pg-pulse{0%,100%{r:6px;opacity:1}50%{r:10px;opacity:.6}}
+
+/* gradient-descent ball rolling along an offset-path (set per-deck) */
+.reveal .roller{animation:pg-roll 3.2s cubic-bezier(.5,0,.3,1) infinite;offset-rotate:0deg;}
+@keyframes pg-roll{0%{offset-distance:2%}60%{offset-distance:50%}75%{offset-distance:50%}100%{offset-distance:2%}}
+
+/* area fill reveal left-to-right */
+.reveal .area-fill{clip-path:inset(0 100% 0 0);}
+.reveal .slides section.present .area-fill{animation:pg-fill 1.4s .8s ease forwards;}
+@keyframes pg-fill{to{clip-path:inset(0 0 0 0);}}
+
+/* grow bars (histogram) */
+.reveal .bar{transform-box:fill-box;transform-origin:bottom;transform:scaleY(0);}
+.reveal .slides section.present .bar{animation:pg-grow .7s ease forwards;}
+@keyframes pg-grow{to{transform:scaleY(1);}}
+
+/* fragment helpers play nice with reveal */
+.reveal .fragment.grow-in{transform:scale(.6);opacity:0;transition:all .4s;}
+.reveal .fragment.grow-in.visible{transform:scale(1);opacity:1;}
+
+/* animated accent gradient title bg */
+.reveal .slides section.bg-anim{}
+.bg-anim-layer{position:absolute;inset:0;z-index:-1;
+  background:radial-gradient(1200px 600px at 20% 10%, rgba(255,196,0,.10), transparent 60%),
+             radial-gradient(900px 500px at 90% 90%, rgba(255,122,24,.10), transparent 60%);
+  animation:pg-bg 8s ease-in-out infinite alternate;}
+@keyframes pg-bg{to{transform:translate3d(0,-12px,0) scale(1.05);}}
+
+/* vector arrows (linear algebra) */
+.reveal .vec{stroke-width:4;fill:none;}
+.reveal .grid-line{stroke:#2a3542;stroke-width:1;}
+.reveal .xform{transition:transform 1.2s cubic-bezier(.4,0,.2,1);}
