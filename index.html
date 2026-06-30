@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Математика для Data Science — proglib</title>
+<style>
+  :root{--bg:#0e1217;--bg2:#151b23;--accent:#ffc400;--accent2:#ff7a18;--text:#dde3ea;--muted:#8b97a7;--border:#232c38;}
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;}
+  .wrap{max-width:1040px;margin:0 auto;padding:64px 24px 80px;}
+  .kicker{letter-spacing:.18em;text-transform:uppercase;font-size:13px;font-weight:700;color:var(--accent);}
+  h1{font-size:44px;font-weight:800;letter-spacing:-1px;margin:.2em 0 .1em;}
+  .sub{color:var(--muted);font-size:18px;margin-bottom:8px;}
+  .ladder{color:var(--muted);font-size:15px;margin-bottom:40px;}
+  .ladder b{color:var(--accent);}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;}
+  a.card{display:block;text-decoration:none;color:var(--text);background:var(--bg2);
+    border:1px solid var(--border);border-radius:18px;padding:22px 22px 20px;transition:.15s;}
+  a.card:hover{border-color:var(--accent);transform:translateY(-3px);}
+  .lvl{font-size:12px;font-weight:700;color:var(--accent);letter-spacing:.08em;text-transform:uppercase;}
+  .card h2{margin:.35em 0 .25em;font-size:23px;font-weight:800;}
+  .card p{margin:0;color:var(--muted);font-size:15px;line-height:1.45;}
+  .meta{margin-top:14px;font-size:13px;color:var(--muted);}
+  .meta b{color:var(--text);}
+  .foot{margin-top:48px;color:var(--muted);font-size:14px;}
+  .foot b{color:var(--accent);}
+</style></head><body>
+<div class="wrap">
+  <div class="kicker">proglib · learn</div>
+  <h1>Математика для Data Science</h1>
+  <p class="sub">Пять курсов — от школьной базы до прикладного ML. Бери нужный блок.</p>
+  <p class="ladder">Лесенка: <b>Старт</b> → Матан · Теорвер · Линал → <b>Pro</b></p>
+
+  <div class="grid">
+    <a class="card" href="start/">
+      <div class="lvl">уровень 0 · с нуля</div>
+      <h2>1 · Старт</h2>
+      <p>Базовая математика с нуля: уравнения, функции, производная, интеграл.</p>
+      <div class="meta"><b>12 модулей</b> · тесты</div>
+    </a>
+    <a class="card" href="calculus/">
+      <div class="lvl">уровень 1 · вышка</div>
+      <h2>2A · Матанализ</h2>
+      <p>Calculus под градиентный спуск: пределы, производные, интегралы, ряды.</p>
+      <div class="meta"><b>14 уроков</b> · лекции · тесты · ДЗ</div>
+    </a>
+    <a class="card" href="probability/">
+      <div class="lvl">уровень 1 · топ-спрос</div>
+      <h2>2B · Теорвер и статистика</h2>
+      <p>Ядро DS: вероятности, случайные величины, оценки, проверка гипотез.</p>
+      <div class="meta"><b>14 уроков</b> · лекции · тесты · ДЗ</div>
+    </a>
+    <a class="card" href="linear-algebra/">
+      <div class="lvl">уровень 1 · под ML</div>
+      <h2>2C · Линейная алгебра</h2>
+      <p>Аппарат под нейросети: матрицы, ранг, собственные векторы, разложения.</p>
+      <div class="meta"><b>12 уроков</b> · лекции · тесты · ДЗ</div>
+    </a>
+    <a class="card" href="pro/">
+      <div class="lvl">уровень 2 · практика</div>
+      <h2>3 · Pro</h2>
+      <p>Прикладной ML: Colab, регрессия, градиентный спуск, финальный проект.</p>
+      <div class="meta"><b>Colab + вебинары</b> · 3 ДЗ · проект</div>
+    </a>
+  </div>
+
+  <p class="foot"><b>proglib</b> · Математика для Data Science · презентации курсов</p>
+</div>
+</body></html>
